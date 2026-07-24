@@ -14,6 +14,11 @@ const KIND_LABEL: Record<NodeKind, string> = {
   module: "module",
   external: "external",
   function: "function",
+  state: "state",
+  setter: "setter",
+  provider: "provider",
+  consumer: "consumer",
+  prop: "prop",
 };
 
 /** Escape pipe characters so labels cannot break the table layout. */

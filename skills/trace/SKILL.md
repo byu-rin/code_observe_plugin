@@ -16,6 +16,7 @@ plus a fenced ```mermaid``` graph. Pick by what the user is asking:
 | "Where does this value come from?" / "Where is X used?" | `trace_variable` | `symbol`, optional `filePath` |
 | "What does this file depend on?" / "Show the dependency graph" | `analyze_imports` | `entryFile`, optional `maxDepth` |
 | "Who calls this?" / "What does this function call?" | `trace_call_flow` | `symbol`, `direction`, optional `maxDepth` |
+| "Where does this state come from?" / anything React state, context, or props | `trace_state_flow` | `symbol`, optional `filePath` |
 
 For `trace_call_flow`, `direction: "callers"` (default) walks **upstream** — use
 it when the question is where data or control originates. `direction: "callees"`
@@ -40,8 +41,16 @@ disambiguate when a name is declared in several places.
 
 ## Notes
 
+- `trace_state_flow` recognises `useState`/`useReducer` (state, setter/dispatch,
+  and call sites), `useContext` (consumer → providers), `createContext` (all
+  providers and consumers), and state passed into children as JSX props. These
+  are **syntactic heuristics**: a context resolved through an alias or a provider
+  rendered dynamically will not be found, and the tool says so in its Notes.
 - Barrel files (`export * from './x'`) and tsconfig `paths` aliases are resolved
   automatically — the graph shows the real declaring file, not the barrel.
+- When a name has several declarations (common in React — a provider's `useState`
+  and a child's destructured prop often share a name), the tools trace one and
+  **warn**. Pass `filePath` to pin the right one.
 - `node_modules` appear as **external** leaf nodes and are not traversed.
 - Graphs are depth-limited (default 3) and cycle-safe. If the user needs more
   reach, raise `maxDepth`.

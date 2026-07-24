@@ -12,6 +12,7 @@
  * - symbol-level: `declaration` | `reference` | `import` | `export`
  * - module-level: `module` (in-project file) | `external` (node_modules/unresolved)
  * - call-level:   `function`
+ * - React state:  `state` | `setter` | `provider` | `consumer` | `prop`
  */
 export type NodeKind =
   | "declaration"
@@ -20,7 +21,12 @@ export type NodeKind =
   | "export"
   | "module"
   | "external"
-  | "function";
+  | "function"
+  | "state"
+  | "setter"
+  | "provider"
+  | "consumer"
+  | "prop";
 
 /** A single location of interest (a declaration or a use of a symbol). */
 export interface GraphNode {

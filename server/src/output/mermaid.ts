@@ -15,13 +15,28 @@ const CLASS_OF: Record<NodeKind, string> = {
   module: "mod",
   external: "ext",
   function: "fn",
+  state: "state",
+  setter: "setter",
+  provider: "prov",
+  consumer: "cons",
+  prop: "prop",
 };
 
-/** Escape a string for use inside a Mermaid `["..."]` quoted label. */
+/**
+ * Escape a string for use inside a Mermaid `["..."]` quoted label.
+ *
+ * JSX-shaped labels (`<Display count={count}>`) are the norm here, so angle
+ * brackets are HTML-encoded rather than dropped — deleting them turns the label
+ * into something that reads like different code than the source.
+ */
 function sanitize(text: string): string {
   return text
     .replace(/"/g, "'")
-    .replace(/[[\]{}|<>]/g, "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\|/g, "/") // a raw pipe would terminate an edge label
+    .replace(/[[\]]/g, "") // square brackets break Mermaid node syntax
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -55,6 +70,11 @@ export function toMermaid(graph: TraceGraph, options: MermaidOptions = {}): stri
   lines.push("  classDef mod fill:#2c5282,color:#fff,stroke:#1a365d;");
   lines.push("  classDef ext fill:#4a5568,color:#fff,stroke:#2d3748;");
   lines.push("  classDef fn fill:#2b6cb0,color:#fff,stroke:#1a4971;");
+  lines.push("  classDef state fill:#1f7a33,color:#fff,stroke:#0d3d19;");
+  lines.push("  classDef setter fill:#c05621,color:#fff,stroke:#7b341e;");
+  lines.push("  classDef prov fill:#805ad5,color:#fff,stroke:#44337a;");
+  lines.push("  classDef cons fill:#2b6cb0,color:#fff,stroke:#1a4971;");
+  lines.push("  classDef prop fill:#0987a0,color:#fff,stroke:#086f83;");
 
   const classFor = (n: GraphNode): string =>
     n.id === rootId ? "root" : CLASS_OF[n.kind];

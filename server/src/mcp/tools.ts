@@ -12,6 +12,7 @@ import { loadProject } from "../analysis/project.js";
 import { traceVariable } from "../analysis/variable-tracer.js";
 import { analyzeImports } from "../analysis/import-analyzer.js";
 import { traceCallFlow } from "../analysis/call-flow.js";
+import { traceStateFlow } from "../analysis/react-hooks.js";
 import type { TraceResult } from "../analysis/types.js";
 import { toMermaid } from "../output/mermaid.js";
 import { toMarkdownSummary } from "../output/markdown.js";
@@ -165,6 +166,39 @@ export function registerTools(server: McpServer): void {
         return renderReport(result, {
           title: `Call flow (${direction ?? "callers"}): \`${symbol}\``,
         });
+      });
+    },
+  );
+
+  server.registerTool(
+    "trace_state_flow",
+    {
+      title: "Trace React state flow",
+      description:
+        "Trace how React state moves. Recognises useState/useReducer (state, its " +
+        "setter/dispatch, and every call site), useContext (consumer linked back to " +
+        "its providers), createContext (all providers and consumers), and state " +
+        "crossing into child components as JSX props. Use for React values; use " +
+        "trace_variable for plain TypeScript ones.",
+      inputSchema: {
+        symbol: z
+          .string()
+          .describe(
+            "The state variable, context, or hook binding to trace, e.g. 'count' or 'ThemeContext'.",
+          ),
+        filePath: z
+          .string()
+          .optional()
+          .describe("Optional file to disambiguate which declaration to trace."),
+        projectRoot: projectRootArg,
+      },
+    },
+    async ({ symbol, filePath, projectRoot }) => {
+      const root = projectRoot ?? process.cwd();
+      return guarded(`trace_state_flow("${symbol}")`, () => {
+        const project = loadProject(root);
+        const result = traceStateFlow(project, { symbol, filePath, projectRoot: root });
+        return renderReport(result, { title: `State flow: \`${symbol}\`` });
       });
     },
   );
