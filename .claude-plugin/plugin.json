@@ -1,0 +1,18 @@
+{
+  "name": "code-archaeologist",
+  "displayName": "Code Archaeologist",
+  "version": "0.1.0",
+  "description": "Trace the origin and flow of variables and data across encapsulated TypeScript/React code, rendered as a dependency graph.",
+  "author": {
+    "name": "byu-rin"
+  },
+  "keywords": [
+    "typescript",
+    "react",
+    "dependency-graph",
+    "code-analysis",
+    "ts-morph",
+    "variable-tracing"
+  ],
+  "license": "MIT"
+}
