@@ -2,7 +2,7 @@
   "mcpServers": {
     "archaeologist": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/server/dist/index.js"]
+      "args": ["C:/Users/Har23/Desktop/code_observe_plugin/server/dist/index.js"]
     }
   }
 }
