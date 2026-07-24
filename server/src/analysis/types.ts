@@ -6,8 +6,21 @@
  * model framework-agnostic lets every phase reuse the same rendering path.
  */
 
-/** What a node represents in a trace. Grows as later phases add flow kinds. */
-export type NodeKind = "declaration" | "reference" | "import" | "export";
+/**
+ * What a node represents in a trace. Grows as later phases add flow kinds.
+ *
+ * - symbol-level: `declaration` | `reference` | `import` | `export`
+ * - module-level: `module` (in-project file) | `external` (node_modules/unresolved)
+ * - call-level:   `function`
+ */
+export type NodeKind =
+  | "declaration"
+  | "reference"
+  | "import"
+  | "export"
+  | "module"
+  | "external"
+  | "function";
 
 /** A single location of interest (a declaration or a use of a symbol). */
 export interface GraphNode {
