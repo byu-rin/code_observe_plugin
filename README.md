@@ -14,31 +14,37 @@ TypeScript/React 코드에서 변수·함수·모듈·React 상태가 **어디�
 
 ## 설치
 
-```bash
-claude plugin install code-archaeologist
+```
+/plugin marketplace add byu-rin/code_observe_plugin
+/plugin install code-archaeologist@code-archaeologist-marketplace
+/reload-plugins
 ```
 
-개발 중에는 플러그인 디렉터리를 직접 지정할 수도 있습니다:
+**첫 실행 시** `SessionStart` 훅이 `npm install`과 빌드를 자동으로 수행합니다.
 
+개발 중에는 로컬 로드도 가능합니다:
 ```bash
 claude --plugin-dir /path/to/code_observe_plugin
 ```
 
-**첫 실행 시** `SessionStart` 훅이 `npm install`과 빌드를 자동으로 수행합니다. 수동 설정이 필요 없습니다.
-
 ## 사용법
 
-### 빠른 시작: `/code-archaeologist:trace`
+```
+/code-archaeologist:trace <symbol>
+```
 
-심볼 이름을 넣어 스킬을 호출합니다:
-
+예시:
 ```
 /code-archaeologist:trace count
 /code-archaeologist:trace ThemeContext
 /code-archaeologist:trace fetchUser
 ```
 
-스킬이 알맞은 도구를 골라 Markdown 요약 + Mermaid 그래프를 돌려줍니다.
+자율 추적을 위해서는 `@code-archaeologist` 에이전트를 사용하세요:
+```
+@code-archaeologist
+이 앱에서 theme 상태는 어디서 오는 거야?
+```
 
 ### 도구 (MCP)
 
