@@ -2,16 +2,6 @@
 
 TypeScript/React 코드에서 변수·함수·모듈·React 상태가 **어디서 왔는지** 추적하고, Mermaid 의존성 그래프로 보여주는 Claude Code 플러그인입니다.
 
-## 기능
-
-| 기능 | 설명 | 도구 |
-| :-- | :-- | :-- |
-| **변수 추적** | 선언 위치 + 모든 참조 (import/export/재-export) | `trace_variable` |
-| **import 그래프** | 모듈 의존성 체인 (path alias·barrel 자동 해석) | `analyze_imports` |
-| **호출 흐름** | 함수 호출 계층 — 누가 부르는지(상류)/무엇을 부르는지(하류) | `trace_call_flow` |
-| **React 상태 흐름** | `useState`/`useReducer` + setter + prop 전달, `useContext` + Provider/Consumer | `trace_state_flow` |
-| **자율 추적** | 서브에이전트가 도구를 이어가며 다중 홉 추적 | `code-archaeologist` 에이전트 |
-
 ## 설치
 
 ```
@@ -45,6 +35,16 @@ claude --plugin-dir /path/to/code_observe_plugin
 @code-archaeologist
 이 앱에서 theme 상태는 어디서 오는 거야?
 ```
+
+## 기능
+
+| 기능 | 설명 | 도구 |
+| :-- | :-- | :-- |
+| **변수 추적** | 선언 위치 + 모든 참조 (import/export/재-export) | `trace_variable` |
+| **import 그래프** | 모듈 의존성 체인 (path alias·barrel 자동 해석) | `analyze_imports` |
+| **호출 흐름** | 함수 호출 계층 — 누가 부르는지(상류)/무엇을 부르는지(하류) | `trace_call_flow` |
+| **React 상태 흐름** | `useState`/`useReducer` + setter + prop 전달, `useContext` + Provider/Consumer | `trace_state_flow` |
+| **자율 추적** | 서브에이전트가 도구를 이어가며 다중 홉 추적 | `code-archaeologist` 에이전트 |
 
 ### 도구 (MCP)
 
