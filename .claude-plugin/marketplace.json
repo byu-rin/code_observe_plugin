@@ -1,0 +1,16 @@
+{
+  "name": "code-archaeologist-marketplace",
+  "owner": {
+    "name": "byu-rin"
+  },
+  "metadata": {
+    "description": "Marketplace for the Code Archaeologist plugin — variable/data origin tracing and dependency graphs for TypeScript/React."
+  },
+  "plugins": [
+    {
+      "name": "code-archaeologist",
+      "source": ".",
+      "description": "Trace variable/data origins and flow across TypeScript/React code as a dependency graph."
+    }
+  ]
+}

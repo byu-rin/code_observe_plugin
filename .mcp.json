@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "archaeologist": {
+      "command": "node",
+      "args": ["C:/Users/Har23/Desktop/code_observe_plugin/server/dist/index.js"]
+    }
+  }
+}
